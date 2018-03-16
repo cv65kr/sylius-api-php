@@ -30,7 +30,7 @@ class GenericApi implements ApiInterface
      * @var array
      */
     static $formats = [
-        'json' => ['application/json', 'application/x-json', 'application/hal+json'],
+        'json' => ['application/json', 'application/x-json', 'application/hal+json', 'application/problem+json'],
     ];
 
     /**
