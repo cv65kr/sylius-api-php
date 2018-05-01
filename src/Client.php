@@ -114,14 +114,24 @@ class Client implements ClientInterface
      */
     public function postAsync($url, $body, array $files = [])
     {
-        $options = ['json' => $body];
+        if (count($files) > 0) {
+            $options = [];
+            $options['multipart'][0] = [
+                'name' => 'data',
+                'contents' => json_encode($body),
+                'headers'  => [ 'Content-Type' => 'application/json']
+            ];
+        } else {
+            $options = ['json' => $body];
+        }
+
         foreach ($files as $key => $filePath) {
             $options['multipart'][] = [
                 'name' => $key,
                 'contents' => $filePath,
             ];
         }
-
+        
         return $this->httpClient->requestAsync('POST', $url, $options);
     }
 
