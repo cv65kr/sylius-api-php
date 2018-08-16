@@ -50,7 +50,7 @@ class Client implements ClientInterface
      */
     public function getAsync($url, array $queryParameters = [])
     {
-        return $this->httpClient->requestAsync('GET', $url, ['query' => $queryParameters]);
+        return $this->httpClient->requestAsync('GET', $url, ['query' => $queryParameters, 'verify' => false]);
     }
 
     /**
@@ -66,7 +66,7 @@ class Client implements ClientInterface
      */
     public function patchAsync($url, array $body)
     {
-        return $this->httpClient->requestAsync('PATCH', $url, ['json' => $body]);
+        return $this->httpClient->requestAsync('PATCH', $url, ['json' => $body, 'verify' => false]);
     }
 
     /**
@@ -82,7 +82,7 @@ class Client implements ClientInterface
      */
     public function putAsync($url, array $body)
     {
-        return $this->httpClient->requestAsync('PUT', $url, ['json' => $body]);
+        return $this->httpClient->requestAsync('PUT', $url, ['json' => $body, 'verify' => false]);
     }
 
     /**
@@ -98,7 +98,7 @@ class Client implements ClientInterface
      */
     public function deleteAsync($url)
     {
-        return $this->httpClient->requestAsync('DELETE', $url);
+        return $this->httpClient->requestAsync('DELETE', $url, ['verify' => false]);
     }
 
     /**
@@ -131,6 +131,8 @@ class Client implements ClientInterface
                 'contents' => $filePath,
             ];
         }
+        
+        $options['verify'] = false;
         
         return $this->httpClient->requestAsync('POST', $url, $options);
     }
